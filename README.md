@@ -1,53 +1,160 @@
-# Next.js Application
+# Car Listing Application
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+A modern, responsive car listing application built with Next.js, featuring advanced filtering, sorting, and search capabilities.
 
-## Prerequisites
+## Table of Contents
+- [Architecture Overview](#architecture-overview)
+- [Key Design Choices](#key-design-choices)
+- [Challenges and Solutions](#challenges-and-solutions)
+- [Future Improvements](#future-improvements)
+- [Development Best Practices](#development-best-practices)
+- [Getting Started](#getting-started)
+- [Available Scripts](#available-scripts)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Architecture Overview
+
+### Technology Stack
+- **Frontend Framework**: Next.js 15.3.2
+- **State Management**: Redux Toolkit
+- **Styling**: Tailwind CSS
+- **Testing**: Jest with React Testing Library
+- **Animation**: Lottie Files for loading animations
+
+### Project Structure
+```
+├── src/
+│   ├── pages/          # Next.js pages
+│   ├── components/     # React components
+│   ├── redux/         # Redux store and slices
+│   ├── styles/        # Global styles
+│   └── __tests__/     # Test files
+```
+
+## Key Design Choices
+
+### Component Architecture
+- **Atomic Design Pattern**: Components are organized following atomic design principles
+  - Atoms: Basic UI elements
+  - Organisms: Complex components like `FilterPanel` and `Pagination`
+  - Templates: Page layouts
+  - Pages: Complete pages like `Home`
+
+### State Management
+- **Redux Toolkit**: Chosen for centralized state management
+  - Manages complex state for:
+    - Search queries
+    - Filters
+    - Sorting
+    - Pagination
+  - Provides predictable state updates and easy debugging
+
+### UI/UX Design
+- **Responsive Design**:
+  - Mobile-first approach
+  - Bottom sheet filter panel for mobile devices
+  - Sidebar filters for desktop
+- **Visual Feedback**:
+  - Loading states with Lottie animations
+  - Hover effects on cards
+  - Smooth transitions for filter panel
+- **Accessibility**:
+  - Semantic HTML structure
+  - ARIA labels
+  - Keyboard navigation support
+
+## Challenges and Solutions
+
+### Performance Optimization
+**Challenge**: Handling large datasets with filtering and sorting
+**Solution**:
+- Implemented client-side filtering and sorting
+- Added pagination to limit rendered items
+- Used memoization for expensive computations
+- Optimized re-renders using React's useMemo and useCallback
+
+### Mobile Responsiveness
+**Challenge**: Creating an intuitive filtering experience on mobile
+**Solution**:
+- Implemented a bottom sheet filter panel
+- Added touch-friendly UI elements
+- Used responsive grid layouts
+- Implemented smooth animations for panel transitions
+
+### Testing Strategy
+**Challenge**: Ensuring reliable component testing
+**Solution**:
+- Comprehensive test suite using Jest and React Testing Library
+- Mocked external dependencies
+- Test coverage for:
+  - Component rendering
+  - User interactions
+  - State management
+  - Edge cases
+
+### State Management Complexity
+**Challenge**: Managing complex filter states and search functionality
+**Solution**:
+- Implemented Redux Toolkit for predictable state updates
+- Created separate slices for different features
+- Used selectors for efficient state access
+- Implemented clear action creators
+
+## Future Improvements
+
+1. **Server-Side Rendering**:
+   - Implement SSR for better SEO
+   - Add server-side filtering and sorting
+
+2. **Performance Enhancements**:
+   - Implement virtual scrolling for large lists
+   - Add image lazy loading
+   - Implement caching strategies
+
+3. **Feature Additions**:
+   - Advanced search capabilities
+   - Save favorite cars
+   - Compare cars feature
+   - User authentication
+
+4. **Accessibility Improvements**:
+   - Enhanced keyboard navigation
+   - Screen reader optimizations
+   - Color contrast improvements
+
+## Development Best Practices
+
+1. **Code Organization**:
+   - Clear component hierarchy
+   - Consistent file naming
+   - Modular code structure
+
+2. **Testing**:
+   - Unit tests for components
+   - Integration tests for features
+   - End-to-end testing for critical paths
+
+3. **Styling**:
+   - Consistent use of Tailwind classes
+   - Responsive design patterns
+   - Theme customization
+
+4. **Performance**:
+   - Code splitting
+   - Lazy loading
+   - Optimized builds
+
+## Getting Started
+
+### Prerequisites
 
 Before you begin, ensure you have the following installed:
-- Node.js (version 14.x or higher)7.268 Attention: Next.js now collects completely anonymous telemetry regarding usage.
-7.269 This information is used to shape Next.js' roadmap and prioritize features.
-7.269 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-7.271 https://nextjs.org/telemetry
-7.271 
-7.514    ▲ Next.js 15.3.2
-7.517 
-8.184    Linting and checking validity of types ...
-8.831    Creating an optimized production build ...
-13.59  ⚠ Mismatching @next/swc version, detected: 14.1.0 while Next.js is on 15.3.2. Please ensure these match
-17.88 Failed to compile.
-17.88 
-17.88 HookWebpackError: _webpack.WebpackError is not a constructor
-17.88     at makeWebpackError (/app/node_modules/next/dist/compiled/webpack/bundle5.js:29:315788)
-17.88     at /app/node_modules/next/dist/compiled/webpack/bundle5.js:29:106487
-17.88     at eval (eval at create (/app/node_modules/next/dist/compiled/webpack/bundle5.js:14:9224), <anonymous>:58:1)
-17.88 -- inner error --
-17.88 TypeError: _webpack.WebpackError is not a constructor
-17.88     at buildError (/app/node_modules/next/dist/build/webpack/plugins/minify-webpack-plugin/src/index.js:24:16)
-17.88     at /app/node_modules/next/dist/build/webpack/plugins/minify-webpack-plugin/src/index.js:127:57
-17.88     at async Span.traceAsyncFn (/app/node_modules/next/dist/trace/trace.js:157:20)
-17.88 caused by plugins in Compilation.hooks.processAssets
-17.88 TypeError: _webpack.WebpackError is not a constructor
-17.88     at buildError (/app/node_modules/next/dist/build/webpack/plugins/minify-webpack-plugin/src/index.js:24:16)
-17.88     at /app/node_modules/next/dist/build/webpack/plugins/minify-webpack-plugin/src/index.js:127:57
-17.88     at async Span.traceAsyncFn (/app/node_modules/next/dist/trace/trace.js:157:20)
-17.88 
-18.00  ⚠ Mismatching @next/swc version, detected: 14.1.0 while Next.js is on 15.3.2. Please ensure these match
-18.01 
-18.01 > Build failed because of webpack errors
-------
-Dockerfile:17
---------------------
-  15 |     
-  16 |     # Build application with error handling
-  17 | >>> RUN npm run build
-  18 |     
-  19 |     # Production stage
---------------------
-ERROR: failed to solve: process "/bin/sh -c npm run build" did not complete successfully: exit code: 1
+- Node.js (version 14.x or higher)
 - npm, yarn, pnpm, or bun package manager
 
-## Project Setup
+### Installation
 
 1. Clone the repository:
 ```bash
@@ -106,6 +213,15 @@ yarn lint
 pnpm lint
 # or
 bun lint
+
+# Run tests
+npm run test
+# or
+yarn test
+# or
+pnpm test
+# or
+bun test
 ```
 
 ## Development
@@ -114,8 +230,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-
-
 ## Features
 
 - Next.js 13+ with Page Router
@@ -123,7 +237,6 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 - Tailwind CSS for styling
 - Prettier for code formatting
 - Optimized fonts with `next/font`
-
 
 ## Project Structure
 
