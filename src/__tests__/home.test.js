@@ -1,9 +1,15 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import Home from '../home';
-import { setSearchQuery, setFilters, setCurrentPage, setSortBy } from '../../redux/carsSlice';
+import Home from '../pages/home';
+import { setSearchQuery, setFilters, setCurrentPage, setSortBy } from '../redux/carsSlice';
 import '@testing-library/jest-dom'; // Import for extended jest-dom matchers
+import { useDispatch, useSelector } from 'react-redux';
+
+// Mock @lottiefiles/dotlottie-react
+jest.mock('@lottiefiles/dotlottie-react', () => ({
+  DotLottieReact: () => <div data-testid="mock-lottie">Loading...</div>
+}));
 
 // Mock react-redux hooks
 jest.mock('react-redux', () => ({
@@ -21,8 +27,15 @@ jest.mock('next/link', () => {
   };
 });
 
+// Mock next/image
+jest.mock('next/image', () => {
+  return ({ src, alt, width, height, priority, className }) => {
+    return <img src={src} alt={alt} width={width} height={height} className={className} />;
+  };
+});
+
 // Mock the FilterPanel component to simplify testing Home
-jest.mock('../../components/FilterPanel', () => {
+jest.mock('../components/organism/FilterPanel', () => {
   return ({ isOpen, onClose, filters, onFilterChange, onRemoveFilter, cars }) => {
     if (!isOpen) return null;
     return (
@@ -45,7 +58,7 @@ jest.mock('../../components/FilterPanel', () => {
 });
 
 // Mock the Pagination component
-jest.mock('../../components/Pagination', () => {
+jest.mock('../components/organism/Pagination', () => {
   return ({ currentPage, totalPages, onPageChange }) => {
     return (
       <div data-testid="pagination">
